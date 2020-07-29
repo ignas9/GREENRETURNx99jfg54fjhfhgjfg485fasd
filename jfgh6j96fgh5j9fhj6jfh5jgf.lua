@@ -1,13 +1,8 @@
-local function getobj(id)
-	if not tonumber(id) then return end
-	return game:GetObjects('rbxassetid://'..id)[1]
-end
-
 local CG = game:GetService("CoreGui")
 local SG = Instance.new("ScreenGui",CG)
 SG.ResetOnSpawn = false
 
-local UI = getobj(5456804084)
+local UI = game:GetObjects('rbxassetid://5456804084')[1]
 UI.Parent = SG
 
 UI.submit.TextButton.MouseButton1Click:Connect(function()
