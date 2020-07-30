@@ -132,13 +132,23 @@ local function startLIBversion(keyEntered)
 		local Cheats = UILIB:CreateWindow({text = 'Cheats'})
 		local Trolls = UILIB:CreateWindow({text = 'Trolls'})
 		local Credits = UILIB:CreateWindow({text = 'Creditst'})
-		Credits:AddLabel('Wally: UI Lib\nHitury: Web based stuff\nscripter man: \nScript')
+		Credits:AddLabel('Wally: UI Lib\nHitury: Web based stuff\nscripter man: Script')
 		Cheats:AddButton('gunmod',function()
 			gunmod()
 		end)
 		Trolls:AddBox('Kill User',function(obj,foc)
 			if foc then
-				killUser(shortname(obj.Name))
+				killUser(shortname(obj.Name).Name)
+			end
+		end)
+		Trolls:AddBox('Heal User',function(obj,foc)
+			if foc then
+				healUser(shortname(obj.Name).Name)
+			end
+		end)
+		Trolls:AddBox('Bat User',function(obj,foc)
+			if foc then
+				batUser(shortname(obj.Name).Name)
 			end
 		end)
 		Cheats:AddButton('nukemod',function()
