@@ -175,13 +175,14 @@ dragify(LIUI)
 LIUI.Parent = SG
 
 LIUI.submit.TextButton.MouseButton1Click:Connect(function()
-	local key = game:HttpGet('https://0x02342054689kf3i5g35g9.000webhostapp.com/check.php?key='..LIUI.KEY.TextBox.Text)
+	local cz = LIUI.KEY.TextBox.Text
+	local key = game:HttpGet('https://0x02342054689kf3i5g35g9.000webhostapp.com/check.php?key='..cz)
 	if key == 'Not Whitelisted' then
 		wait(1)
 		LP:Kick('Invalid key detected.')
 	elseif key == 'Whitelisted' then
 		LIUI:remove()
 		wait(1)
-		startLIBversion(LIUI.KEY.TextBox.Text)
+		startLIBversion(cz)
 	end
 end)
