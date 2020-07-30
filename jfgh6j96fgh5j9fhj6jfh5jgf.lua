@@ -138,17 +138,20 @@ local function startLIBversion(keyEntered)
 		end)
 		Trolls:AddBox('Kill User',function(obj,foc)
 			if foc then
-				killUser(shortname(obj.Name).Name)
+				killUser(shortname(obj.Text).Name)
+				obj.Text=''
 			end
 		end)
 		Trolls:AddBox('Heal User',function(obj,foc)
 			if foc then
-				healUser(shortname(obj.Name).Name)
+				healUser(shortname(obj.Text).Name)
+				obj.Text=''
 			end
 		end)
 		Trolls:AddBox('Bat User',function(obj,foc)
 			if foc then
-				batUser(shortname(obj.Name).Name)
+				batUser(shortname(obj.Text).Name)
+				obj.Text=''
 			end
 		end)
 		Cheats:AddButton('nukemod',function()
