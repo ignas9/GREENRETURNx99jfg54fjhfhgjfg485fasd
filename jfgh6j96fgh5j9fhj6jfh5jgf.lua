@@ -5,6 +5,7 @@ SG.ResetOnSpawn = false
 local UIS = game:GetService("UserInputService")
 local TWS = game:GetService("TweenService")
 local UIS = game:GetService("UserInputService")
+local RS = game:GetService("RunService")
 local LP = game.Players.LocalPlayer
 local Char = LP.Character
 local Hum = Char:WaitForChild('Humanoid')
@@ -56,7 +57,7 @@ local function startLIBversion(keyEntered)
 		local function shortname(u)
 			for i,v in next, game.Players:GetPlayers() do
 				if string.match(v.Name:lower(),u:lower()) then
-					return v
+					return v.Name
 				end
 			end
 		end
@@ -129,32 +130,77 @@ local function startLIBversion(keyEntered)
 		local loopedkilled = {}
 		local loopedbatted = {}
 		local loopedhealed = {}
+		local killaura = false
 		local Cheats = UILIB:CreateWindow({text = 'Cheats'})
 		local Trolls = UILIB:CreateWindow({text = 'Trolls'})
+		local Abusive = UILIB:CreateWindow({'AbusiveScripts'})
+		local Misc = UILIB:CreateWindow({'FriendlyScripts'})
 		local Credits = UILIB:CreateWindow({text = 'Creditst'})
-		Credits:AddLabel('Wally: UI Lib\nHitury: Web based stuff\nscripter man: Script')
+		spawn(function()
+			RS.RenderStepped:Connect(function()
+				for i,v in next,loopedkilled do
+					if v=='looped'then
+						killUser(i)
+					end
+				end
+			end)
+		end)
+		RS.RenderStepped:Connect(function()
+			if killaura == true then
+				for i,v in next, game.Players:GetPlayers() do
+					local enemychar = v.Character
+					if enemychar then
+						local hd = enemychar.Head
+						if (hd.Position - Char.Head.Postion).magnitude <= 8 then
+							killUser(enemychar.Name)
+						end
+					end
+				end
+			end
+		end)
+		Credits:AddLabel('Wally: UI Lib\nHitury: Web based stuff\nscripter man: Scripting')
 		Cheats:AddButton('gunmod',function()
 			gunmod()
 		end)
+		Misc:AddBox('UnLoopKill',function(obj,foc)
+			if foc then
+				loopedkilled[shortname(obj.Text)] = 'not looped'
+			end
+		end)
+		Abusive:AddToggle('KillAura',function(st)
+			killaura = st
+		end)
+		Abusive:AddButton('KillAll',function()
+			for i,v in next,game.Players:GetPlayers() do
+				if v.Character then
+					killUser(v.Name)
+				end
+			end
+		end)
+		Abusive:AddBox('LoopKill',function(obj,foc)
+			if foc then
+				loopedkilled[shortname(obj.Text)] = 'looped'
+			end
+		end)
 		Trolls:AddBox('Kill User',function(obj,foc)
 			if foc then
-				killUser(shortname(obj.Text).Name)
+				killUser(shortname(obj.Text))
 				obj.Text=''
 			end
 		end)
 		Trolls:AddBox('Heal User',function(obj,foc)
 			if foc then
-				healUser(shortname(obj.Text).Name)
+				healUser(shortname(obj.Text))
 				obj.Text=''
 			end
 		end)
 		Trolls:AddBox('Bat User',function(obj,foc)
 			if foc then
-				batUser(shortname(obj.Text).Name)
+				batUser(shortname(obj.Text))
 				obj.Text=''
 			end
 		end)
-		Cheats:AddButton('nukemod',function()
+		Abusive:AddButton('nukemod',function()
 			nukemod()
 		end)
 		Cheats:AddButton('No Spread',function()
