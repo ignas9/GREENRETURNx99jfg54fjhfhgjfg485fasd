@@ -14,7 +14,7 @@ if not allowedexploits then LP:Kick('This exploit is not supported in GR! Suppor
 local function startLIBversion(keyEntered)
 	local key = game:HttpGet('https://0x02342054689kf3i5g35g9.000webhostapp.com/check.php?key='..keyEntered)
 	if key == 'Whitelisted' then
-		local UILIB = loadstring(game:HttpGet('https://raw.githubusercontent.com/Kiwi-i/wallys-ui-fork/master/lib.lua'))()
+		local UILIB = loadstring(game:HttpGet('https://pastebin.com/raw/zH17BK2a'))()
 		local function killUser(name)
 			local A_1 = 999999999
 			local A_2 = game.Players[name].Character
@@ -53,6 +53,13 @@ local function startLIBversion(keyEntered)
 			local Event = game:GetService("ReplicatedStorage").RemoteFunctions.HealBall
 			Event:FireServer(A_1, A_2, A_3, A_4)
 		end
+		local function shortname(u)
+			for i,v in next, game.Players:GetPlayers() do
+				if string.match(v.Name:lower(),string.find(v.Name:lower(),u:lower())) then
+					return u
+				end
+			end
+		end
 		local function gunmod()
 			for i,v in next, getgc(true) do
 				if type(v) == "table" and rawget(v,"FireRate") then
@@ -68,7 +75,7 @@ local function startLIBversion(keyEntered)
 					v.AngleY = 0
 					v.Spread = 0
 					v.RecoilRedution = 0
-					v.RecoilSpeed = 0.01
+					v.RecoilSpeed = 0
 					v.LifeSteal = 1000000000
 				end
 			end
@@ -77,8 +84,8 @@ local function startLIBversion(keyEntered)
 			for i,v in next, getgc(true) do
 				if type(v) == "table" and rawget(v,"FireRate") then
 					v.Spread = 0
-					v.AmmoPerMag = 9999
-					v.FireRate= 00.00
+					v.AmmoPerMag = math.huge
+					v.FireRate= 0
 					v.BaseDamage = math.huge
 					v.Auto = true
 					v.ReloadTime = 0
@@ -88,7 +95,7 @@ local function startLIBversion(keyEntered)
 					v.AngleY = 0
 					v.Spread = 0
 					v.RecoilRedution = 0
-					v.RecoilSpeed = 0.01
+					v.RecoilSpeed = 0
 					v.LifeSteal = 1000000000
 					v.Radius = 1000000000
 					v.ExplosiveEnabled = true
@@ -122,13 +129,68 @@ local function startLIBversion(keyEntered)
 		local loopedkilled = {}
 		local loopedbatted = {}
 		local loopedhealed = {}
-		local Cheats = UILIB:CreateWindow('Cheats')
-		Cheats:Section('Weapon Cheats')
-		Cheats:Button('gunmod',function()
+		local Cheats = UILIB:CreateWindow({text = 'Cheats'})
+		local Trolls = UILIB:CreateWindow({text = 'Trolls'})
+		local Credits = UILIB:CreateWindow({text = 'Creditst'})
+		Credits:AddLabel('Wally: UI Lib\nHitury: Web based stuff\nscripter man: \nScript')
+		Cheats:AddButton('gunmod',function()
 			gunmod()
 		end)
-		Cheats:Button('nukemod',function()
+		Trolls:AddBox('Kill User',function(obj,foc)
+			if foc then
+				killUser(shortname(obj.Name))
+			end
+		end)
+		Cheats:AddButton('nukemod',function()
 			nukemod()
+		end)
+		Cheats:AddButton('No Spread',function()
+			for i,v in next, getgc(true) do
+				if type(v)=='table'and rawget(v,'Spread') then
+					v.Spread = 0
+				end
+			end
+		end)
+		Cheats:AddButton('No Recoil',function()
+			for i,v in next, getgc(true) do
+				if type(v)=='table'and rawget(v,'Recoil') then
+					v.CameraShakingEnabled = false
+					v.Recoil = 0
+					v.AngleX = 0
+					v.AngleY = 0
+					v.RecoilRedution = 0
+					v.RecoilSpeed = 0
+				end
+			end
+		end)
+		Cheats:AddButton('Infinite Ammo',function()
+			for i,v in next, getgc(true) do
+				if type(v)=='table'and rawget(v,'AmmoPerMag') then
+					v.AmmoPerMag = math.huge
+				end
+			end
+		end)
+		Cheats:AddButton('Instant Damage',function()
+			for i,v in next, getgc(true) do
+				if type(v)=='table'and rawget(v,'BaseDamage') then
+					v.BaseDamage = math.huge
+				end
+			end
+		end)
+		Cheats:AddButton('RapidFire',function()
+			for i,v in next, getgc(true) do
+				if type(v)=='table'and rawget(v,'Auto') then
+					v.Auto = true
+					v.FireRate = 0
+				end
+			end
+		end)
+		Cheats:AddButton('No ReloadTime',function()
+			for i,v in next, getgc(true) do
+				if type(v)=='table'and rawget(v,'ReloadTime') then
+					v.ReloadTime = 0
+				end
+			end
 		end)
 	else
 		LP:Kick('Incorrect key detected.')
