@@ -1,3 +1,4 @@
+local allowedexploits = issentinelclosure or syn or is_synapse_function or KRNL_LOADED
 local CG = game:GetService("CoreGui")
 local SG = Instance.new("ScreenGui",CG)
 SG.ResetOnSpawn = false
@@ -8,9 +9,132 @@ local LP = game.Players.LocalPlayer
 local Char = LP.Character
 local Hum = Char:WaitForChild('Humanoid')
 local Mouse = LP:GetMouse()
-local function TS(obj,tabl,decay)
-	TWS:Create(obj,TweenInfo.new(decay),tabl):Play()
+local LIUI = game:GetObjects('rbxassetid://5456804084')[1]
+if not allowedexploits then LP:Kick('This exploit is not supported in GR! Supported exploits : Sentinel,Synapse,Krnl (prob broken)') end
+local function startLIBversion(keyEntered)
+	local key = game:HttpGet('https://0x02342054689kf3i5g35g9.000webhostapp.com/check.php?key='..keyEntered)
+	if key == 'Whitelisted' then
+		local UILIB = loadstring(game:HttpGet('https://raw.githubusercontent.com/Kiwi-i/wallys-ui-fork/master/lib.lua'))()
+		local function killUser(name)
+			local A_1 = 999999999
+			local A_2 = game.Players[name].Character
+			local A_3 = {game.Players.LocalPlayer}
+			local A_4 = {
+				["nightTimeMin"] = 0, 
+				["stealRange"] = 0, 
+				["percentageDamage"] = 0, 
+				["animFrames"] = 0, 
+				["nightTimeMax"] = 0, 
+				["defaultBubbleRadius"] = 0, 
+				["veloTime"] = 0, 
+				["veloSpeed"] = 0, 
+				["healRange"] = 0, 
+				["percentageHeal"] = 0, 
+				["cooldowns"] = {["E"] = 0, ["G"] =0, ["F"] = 0}}
+			local Event = game:GetService("ReplicatedStorage").RemoteFunctions.HealBall
+			Event:FireServer(A_1, A_2, A_3, A_4)
+		end
+		local function healUser(name)
+			local A_1 = -999999999
+			local A_2 = game.Players[name].Character
+			local A_3 = {game.Players.LocalPlayer}
+			local A_4 = {
+				["nightTimeMin"] = 0, 
+				["stealRange"] = 0, 
+				["percentageDamage"] = 0, 
+				["animFrames"] = 0, 
+				["nightTimeMax"] = 0, 
+				["defaultBubbleRadius"] = 0, 
+				["veloTime"] = 0, 
+				["veloSpeed"] = 0, 
+				["healRange"] = 0, 
+				["percentageHeal"] = 0, 
+				["cooldowns"] = {["E"] = 0, ["G"] =0, ["F"] = 0}}
+			local Event = game:GetService("ReplicatedStorage").RemoteFunctions.HealBall
+			Event:FireServer(A_1, A_2, A_3, A_4)
+		end
+		local function gunmod()
+			for i,v in next, getgc(true) do
+				if type(v) == "table" and rawget(v,"FireRate") then
+					v.Spread = 0
+					v.AmmoPerMag = 9999
+					v.FireRate= 00.00
+					v.BaseDamage = math.huge
+					v.Auto = true
+					v.ReloadTime = 0
+					v.CameraShakingEnabled = false
+					v.Recoil = 0
+					v.AngleX = 0
+					v.AngleY = 0
+					v.Spread = 0
+					v.RecoilRedution = 0
+					v.RecoilSpeed = 0.01
+					v.LifeSteal = 1000000000
+				end
+			end
+		end
+		local function nukemod()
+			for i,v in next, getgc(true) do
+				if type(v) == "table" and rawget(v,"FireRate") then
+					v.Spread = 0
+					v.AmmoPerMag = 9999
+					v.FireRate= 00.00
+					v.BaseDamage = math.huge
+					v.Auto = true
+					v.ReloadTime = 0
+					v.CameraShakingEnabled = false
+					v.Recoil = 0
+					v.AngleX = 0
+					v.AngleY = 0
+					v.Spread = 0
+					v.RecoilRedution = 0
+					v.RecoilSpeed = 0.01
+					v.LifeSteal = 1000000000
+					v.Radius = 1000000000
+					v.ExplosiveEnabled = true
+				end
+			end
+		end
+		local function batUser(name)
+			local A_1 = game.Players[name].Character
+			local A_2 = 
+			{
+				["nightTimeMin"] = 20, 
+				["stealRange"] = 40, 
+				["percentageDamage"] = 0.35, 
+				["animFrames"] = 24, 
+				["nightTimeMax"] = 8, 
+				["defaultBubbleRadius"] = 12, 
+				["veloTime"] = 0.35, 
+				["veloSpeed"] = 60, 
+				["healRange"] = 12, 
+				["percentageHeal"] = 0.5, 
+				["cooldowns"] = 
+				{
+					["E"] = 1.5, 
+					["G"] = 1.5, 
+					["F"] = 1.5
+				}
+			}
+			local Event = game:GetService("ReplicatedStorage").RemoteFunctions.BatBlink
+			Event:FireServer(A_1, A_2)
+		end
+		local loopedkilled = {}
+		local loopedbatted = {}
+		local loopedhealed = {}
+		local Cheats = UILIB:CreateWindow('Cheats')
+		Cheats:Section('Weapon Cheats')
+		Cheats:Button('gunmod',function()
+			gunmod()
+		end)
+		Cheats:Button('nukemod',function()
+			nukemod()
+		end)
+	else
+		LP:Kick('Incorrect key detected.')
+	end
 end
+
 function dragify(Frame)
     dragToggle = nil
     local dragSpeed = 0.25
@@ -46,133 +170,18 @@ function dragify(Frame)
     end)
 end
 
-local function ripple(button, x, y)
-	spawn(function()
-		local circle = Instance.new("ImageLabel",button)
-		circle.Name = 'circle'
-		circle.BackgroundTransparency = 1
-		circle.ImageTransparency = 1
-		circle.BackgroundColor3 = Color3.fromRGB(255,255,255)
-		circle.Image = 'rbxassetid://266543268'
-		circle.ZIndex = 1000
-		
-		button.ClipsDescendants = true
-
-		local new_x = x - circle.AbsolutePosition.X
-		local new_y = y - circle.AbsolutePosition.Y
-		circle.Position = UDim2.new(0, new_x, 0, new_y)
-
-		local size = 0
-		if button.AbsoluteSize.X > button.AbsoluteSize.Y then
-			 size = button.AbsoluteSize.X * 1.5
-		elseif button.AbsoluteSize.X < button.AbsoluteSize.Y then
-			 size = button.AbsoluteSize.Y * 1.5
-		elseif button.AbsoluteSize.X == button.AbsoluteSize.Y then
-			size = button.AbsoluteSize.X * 1.5
-		end
-
-		circle:TweenSizeAndPosition(UDim2.new(0, size, 0, size), UDim2.new(0.5, -size / 2, 0.5, -size / 2), "Out", "Quad", 0.5, false, nil)
-		TS(circle,{ImageTrasnparency = 1},0.5)
-
-		wait(0.5)
-		circle:Destroy()
-	end)
-end
-
-local function createTab(name)
-	local Tab = Instance.new("ImageLabel",MUI.TTabs)
-	local TB = Instance.new("TextButton",Tab)
-	local tab = Instance.new("Frame",MUI)
-	local table = {}
-	function table:Button(text,func)
-		func = func or function() end
-		local hdf = Instance.new("ImageLabel",tab)
-		local b = Instance.new("TextButton",hdf)
-		hdf.Name = "Tab"
-		hdf.Active = true
-		hdf.BackgroundTransparency = 1.000
-		hdf.BorderSizePixel = 0
-		hdf.Image = "rbxassetid://1307995459"
-		hdf.ImageColor3 = Color3.fromRGB(20, 20, 20)
-		hdf.ScaleType = Enum.ScaleType.Slice
-		hdf.SliceCenter = Rect.new(2, 2, 254, 254)
-		b.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		b.BackgroundTransparency = 1.000
-		b.BorderSizePixel = 0
-		b.Size = UDim2.new(1, 0, 1, 0)
-		b.ZIndex = 2
-		b.Font = Enum.Font.GothamSemibold
-		b.Text = text
-		b.TextColor3 = Color3.fromRGB(255, 255, 255)
-		b.TextSize = 14.000
-		b.TextWrapped = true
-		hdf.Size = UDim2.new(0,(b.TextBounds.X+15),0,17)
-		ripple(b,Mouse.X,Mouse.Y)
-		b.MouseButton1Click:Connect(func)
-	end
-
-	Tab.Name = "Tab"
-	Tab.Active = true
-	Tab.BackgroundTransparency = 1.000
-	Tab.BorderSizePixel = 0
-	Tab.Size = UDim2.new(0, 75, 1, 0)
-	Tab.Image = "rbxassetid://1307995459"
-	Tab.ImageColor3 = Color3.fromRGB(20, 20, 20)
-	Tab.ScaleType = Enum.ScaleType.Slice
-	Tab.SliceCenter = Rect.new(2, 2, 254, 254)
-
-	TB.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	TB.BackgroundTransparency = 1.000
-	TB.BorderSizePixel = 0
-	TB.Size = UDim2.new(1, 0, 1, 0)
-	TB.ZIndex = 2
-	TB.Font = Enum.Font.GothamSemibold
-	TB.Text = name
-	TB.TextColor3 = Color3.fromRGB(255, 255, 255)
-	TB.TextSize = 14.000
-	TB.TextWrapped = true
-	ripple(TB,Mouse.X,Mouse.Y)
-	
-	tab.Name = 'tab'..math.random(1,math.random(500,9999))
-	tab.BackgroundTransparency = 1
-	tab.Position = UDim2.new(0.015,0,0.214,0)
-	tab.Size = UDim2.new(0,566,0,202)
-
-	TB.MouseButton1Click:Connect(function()
-		for i,v in next, MUI:GetChildren() do
-			if string.find(v.Name,'tab') then
-				v.Visible = false
-			end
-		end
-		tab.Visible = true
-	end)
-	return table
-end
-local test = createTab('Test1')
-test:Button('Print test',function()
-	print('Test')
-end)
-test:Button('Kick self',function()
-	LP:Kick('Test')
-end)
-local test2 = createTab('Test2')
-test2:Button('Kill Self',function()
-	Hum.Health = 0
-end)
-
-LIUI = game:GetObjects('rbxassetid://5456804084')[1]
-MUI = game:GetObjects('rbxassetid://5457552891')[1]
-LIUI.Parent = SG
 dragify(LIUI)
-dragify(MUI)
+
+LIUI.Parent = SG
 
 LIUI.submit.TextButton.MouseButton1Click:Connect(function()
-	local returned = loadstring(game:HttpGet('https://0x02342054689kf3i5g35g9.000webhostapp.com/check.php?key='..LIUI.KEY.TextBox.Text))()
-	if returned == 'Not Whitelisted' then
+	local key = game:HttpGet('https://0x02342054689kf3i5g35g9.000webhostapp.com/check.php?key='..LIUI.KEY.TextBox.Text)
+	if key == 'Not Whitelisted' then
 		wait(1)
 		LP:Kick('Invalid key detected.')
-	elseif returned == 'Whitelisted' then
+	elseif key == 'Whitelisted' then
+		LIUI:remove()
 		wait(1)
-		MUI.Parent = SG
+		startLIBversion(LIUI.KEY.TextBox.Text)
 	end
 end)
