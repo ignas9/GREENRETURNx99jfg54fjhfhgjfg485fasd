@@ -66,19 +66,19 @@ local function startLIBversion(keyEntered)
 			local Event = game:GetService("ReplicatedStorage").RemoteFunctions.HealBall
 			Event:FireServer(A_1, A_2, A_3, A_4)
 		end
-		local function shortname(u)
-             local matches= {}
-             for _, player in ipairs (game.Players:GetPlayers()) do
-                  if string.lower(player.Name):match(string.lower(u)) then
-                     table.insert(matches, player)
+		local function shortname(nameString)
+            local matches= {}
+            for _, player in ipairs (game.Players:GetPlayers()) do
+                if string.lower(player.Name):match(string.lower(nameString)) then
+                    table.insert(matches, player)
                 end
             end
             if #matches== 1 then
                 return matches[1]
             else
-                 return nil
+                return nil
             end
-		end
+        end
 		local function gunmod()
             local v = {}
             v.Spread = 0
