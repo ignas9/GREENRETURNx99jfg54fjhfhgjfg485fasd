@@ -26,7 +26,7 @@ local function startLIBversion(keyEntered)
         end)
         local function modgun(t)
             t=t or {}
-            local z = t[math.random(1,#t)]
+            local z = 'BaseDamage'
             for i,v in next, getgc(true) do
                 if type(v)=='table'and rawget(v,z) then
                     for n,j in next, t do
@@ -170,9 +170,9 @@ local function startLIBversion(keyEntered)
 			if killaura == true then
 				for i,v in next, game.Players:GetPlayers() do
 					local enemychar = v.Character
-					if enemychar then
+					if enemychar.Humanoid then
 						local hd = enemychar.Head
-						if (hd.Position - Char.Head.Position).magnitude <= 8 then
+						if (hd.Position - Char.Head.Position).magnitude < 8 then
 							killUser(enemychar.Name)
 						end
 					end
@@ -189,7 +189,7 @@ local function startLIBversion(keyEntered)
 			end
 		end)
 		Abusive:AddToggle('KillAura',function(st)
-			killaura = st
+			killaura = not killaura
 		end)
 		Abusive:AddButton('KillAll',function()
 			for i,v in next,game.Players:GetPlayers() do
