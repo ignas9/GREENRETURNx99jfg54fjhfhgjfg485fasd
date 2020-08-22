@@ -19,7 +19,7 @@ local function startLIBversion(keyEntered)
         local UILIB = loadstring(game:HttpGet('https://pastebin.com/raw/zH17BK2a'))()
         UIS.InputBegan:Connect(function(input,istext)
             if not istext then
-                if input.KeyCode == Enum.KeyCode.RightCtrl then
+                if input.KeyCode == Enum.KeyCode.RightControl then
                     UILIB.gui.Enabled = not UILIB.gui.Enabled
                 end
             end
