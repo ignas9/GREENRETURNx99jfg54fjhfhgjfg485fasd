@@ -68,7 +68,7 @@ local function startLIBversion(keyEntered)
 		end
         local function shortname(nameString)
             local matches = {}
-            for i,v in pairs(game:GetService('Players'):GetChildren() do
+            for i,v in pairs(game:GetService('Players'):GetChildren()) do
                 if string.string.match(v.Name:lower(),nameString:lower) then
                     table.insert(matches,v.Name)
                 end
@@ -76,7 +76,7 @@ local function startLIBversion(keyEntered)
             if #matches == 1 then
                 return matches[1]
             else
-                return nil
+                return ''
             end
         end
 		local function gunmod()
