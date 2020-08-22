@@ -11,6 +11,7 @@ local Char = LP.Character
 local Hum = Char:WaitForChild('Humanoid')
 local Mouse = LP:GetMouse()
 local LIUI = game:GetObjects('rbxassetid://5456804084')[1]
+LIUI.KEY.TextBox.Text = _G.__key__ or ''
 if not allowedexploits then LP:Kick('This exploit is not supported in GR! Supported exploits : Sentinel,Synapse,Krnl (prob broken)') end
 local function startLIBversion(keyEntered)
 	local key = game:HttpGet('https://0x02342054689kf3i5g35g9.000webhostapp.com/check.php?key='..keyEntered)
@@ -66,11 +67,17 @@ local function startLIBversion(keyEntered)
 			Event:FireServer(A_1, A_2, A_3, A_4)
 		end
 		local function shortname(u)
-			for i,v in next, game.Players:GetPlayers() do
-				if string.match(u:lower(),v.Name:lower()) then
-					return v.Name
-				end
-			end
+             local matches= {}
+             for _, player in ipairs (game.Players:GetPlayers()) do
+                  if string.lower(player.Name):match(string.lower(nameString)) then
+                     table.insert(matches, player)
+                end
+            end
+            if #matches== 1 then
+                return matches[1]
+            else
+                 return nil
+            end
 		end
 		local function gunmod()
             local v = {}
