@@ -15,7 +15,18 @@ if not allowedexploits then LP:Kick('This exploit is not supported in GR! Suppor
 local function startLIBversion(keyEntered)
 	local key = game:HttpGet('https://0x02342054689kf3i5g35g9.000webhostapp.com/check.php?key='..keyEntered)
 	if key == 'Whitelisted' then
-		local UILIB = loadstring(game:HttpGet('https://pastebin.com/raw/zH17BK2a'))()
+        local UILIB = loadstring(game:HttpGet('https://pastebin.com/raw/zH17BK2a'))()
+        local function modgun(t)
+            t=t or {}
+            local z = t[math.random(1,#t)]
+            for i,v in next, getgc(true) do
+                if type(v)=='table'and rawget(v,z) then
+                    for n,j in next, t do
+                        v[n]=j
+                    end
+                end
+            end
+        end
 		local function killUser(name)
 			local A_1 = 999999999
 			local A_2 = game.Players[name].Character
@@ -62,46 +73,42 @@ local function startLIBversion(keyEntered)
 			end
 		end
 		local function gunmod()
-			for i,v in next, getgc(true) do
-				if type(v) == "table" and rawget(v,"FireRate") then
-					v.Spread = 0
-					v.AmmoPerMag = 9999
-					v.FireRate= 00.00
-					v.BaseDamage = math.huge
-					v.Auto = true
-					v.ReloadTime = 0
-					v.CameraShakingEnabled = false
-					v.Recoil = 0
-					v.AngleX = 0
-					v.AngleY = 0
-					v.Spread = 0
-					v.RecoilRedution = 0
-					v.RecoilSpeed = 0
-					v.LifeSteal = 1000000000
-				end
-			end
+            local v = {}
+            v.Spread = 0
+			v.AmmoPerMag = 9999
+			v.FireRate= 00.00
+			v.BaseDamage = math.huge
+			v.Auto = true
+			v.ReloadTime = 0
+			v.CameraShakingEnabled = false
+			v.Recoil = 0
+			v.AngleX = 0
+			v.AngleY = 0
+			v.Spread = 0
+			v.RecoilRedution = 0
+			v.RecoilSpeed = 0
+            v.LifeSteal = 1000000000
+            modgun(v)
 		end
 		local function nukemod()
-			for i,v in next, getgc(true) do
-				if type(v) == "table" and rawget(v,"FireRate") then
-					v.Spread = 0
-					v.AmmoPerMag = math.huge
-					v.FireRate= 0
-					v.BaseDamage = math.huge
-					v.Auto = true
-					v.ReloadTime = 0
-					v.CameraShakingEnabled = false
-					v.Recoil = 0
-					v.AngleX = 0
-					v.AngleY = 0
-					v.Spread = 0
-					v.RecoilRedution = 0
-					v.RecoilSpeed = 0
-					v.LifeSteal = 1000000000
-					v.Radius = 1000000000
-					v.ExplosiveEnabled = true
-				end
-			end
+			local v = {}
+			v.Spread = 0
+			v.AmmoPerMag = math.huge
+			v.FireRate= 0
+			v.BaseDamage = math.huge
+			v.Auto = true
+			v.ReloadTime = 0
+			v.CameraShakingEnabled = false
+			v.Recoil = 0
+			v.AngleX = 0
+			v.AngleY = 0
+			v.Spread = 0
+			v.RecoilRedution = 0
+			v.RecoilSpeed = 0
+			v.LifeSteal = 1000000000
+			v.Radius = 1000000000
+            v.ExplosiveEnabled = true
+            modgun(v)
 		end
 		local function batUser(name)
 			local A_1 = game.Players[name].Character
@@ -204,55 +211,43 @@ local function startLIBversion(keyEntered)
 			nukemod()
 		end)
 		Cheats:AddButton('No Spread',function()
-			for i,v in next, getgc(true) do
-				if type(v)=='table'and rawget(v,'Spread') then
-					v.Spread = 0
-				end
-			end
+            local v = {}
+            v.Spread = 0
+            modgun(v)
 		end)
 		Cheats:AddButton('No Recoil',function()
-			for i,v in next, getgc(true) do
-				if type(v)=='table'and rawget(v,'Recoil') then
-					v.CameraShakingEnabled = false
-					v.Recoil = 0
-					v.AngleX = 0
-					v.AngleY = 0
-					v.RecoilRedution = 0
-					v.RecoilSpeed = 0
-				end
-			end
+            local v = {}
+            v.CameraShakingEnabled = false
+			v.Recoil = 0
+			v.AngleX = 0
+			v.AngleY = 0
+			v.RecoilRedution = 0
+            v.RecoilSpeed = 0
+            modgun(v)
 		end)
 		Cheats:AddButton('Infinite Ammo',function()
-			for i,v in next, getgc(true) do
-				if type(v)=='table'and rawget(v,'AmmoPerMag') then
-					v.AmmoPerMag = math.huge
-				end
-			end
+			local v = {}
+            v.AmmoPerMag = math.huge
+            modgun(v)
 		end)
 		Cheats:AddButton('Instant Damage',function()
-			for i,v in next, getgc(true) do
-				if type(v)=='table'and rawget(v,'BaseDamage') then
-					v.BaseDamage = math.huge
-				end
-			end
+            local v = {}
+            v.BaseDamage = math.huge
+            modgun(v)
 		end)
 		Cheats:AddButton('RapidFire',function()
-			for i,v in next, getgc(true) do
-				if type(v)=='table'and rawget(v,'Auto') then
-					v.Auto = true
-					v.FireRate = 0
-				end
-			end
+            local v = {}
+            v.Auto = true
+            v.FireRate = 0
+            modgun(v)
 		end)
 		Cheats:AddButton('No ReloadTime',function()
-			for i,v in next, getgc(true) do
-				if type(v)=='table'and rawget(v,'ReloadTime') then
-					v.ReloadTime = 0
-				end
-			end
+            local v = {}
+            v.ReloadTime = 0
+            modgun(v)
 		end)
 	else
-		LP:Kick('Incorrect key detected.')
+		LP:Kick('Invalid key detected.')
 	end
 end
 
