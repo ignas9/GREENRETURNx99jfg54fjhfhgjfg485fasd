@@ -35,7 +35,8 @@ local function startLIBversion(keyEntered)
                 end
             end
         end
-		local function killUser(name)
+        local function killUser(name)
+            print(name)
 			local A_1 = 999999999
 			local A_2 = game.Players[name].Character
 			local A_3 = {game.Players.LocalPlayer}
@@ -165,18 +166,24 @@ local function startLIBversion(keyEntered)
 					end
 				end
 			end)
-		end)
+        end)
+        local function closestTarget(dist)
+            local target = nil
+            for i,v in next, game.Players:GetPlayers() do
+                local enemychar = v.Character
+                if enemychar then
+                    local hd = enemychar:FindFirstChild('Head')
+                    if (Char.Head.Position - hd.Position) and enemychar.Humanoid.Health > 0 then
+                        target = enemychar
+                    end
+                end
+            end
+            return target
+        end
 		RS.RenderStepped:Connect(function()
 			if killaura == true then
-				for i,v in next, game.Players:GetPlayers() do
-					local enemychar = v.Character
-					if enemychar.Humanoid then
-						local hd = enemychar.Head
-						if (hd.Position - Char.Head.Position).magnitude < 8 then
-							killUser(enemychar.Name)
-						end
-					end
-				end
+                local tar = closestTarget(8)
+                killUser(tar)
 			end
 		end)
 		Credits:AddLabel('Wally: UI Lib\nHitury: Web based stuff\nscripter man: Scripting\nPress RightCtrl to toggle gui!')
@@ -189,7 +196,8 @@ local function startLIBversion(keyEntered)
 			end
 		end)
 		Abusive:AddToggle('KillAura',function(st)
-			killaura = not killaura
+            killaura = not killaura
+            print(killaura)
 		end)
 		Abusive:AddButton('KillAll',function()
 			for i,v in next,game.Players:GetPlayers() do
