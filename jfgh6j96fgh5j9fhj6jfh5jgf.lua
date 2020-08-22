@@ -69,7 +69,7 @@ local function startLIBversion(keyEntered)
 		local function shortname(u)
              local matches= {}
              for _, player in ipairs (game.Players:GetPlayers()) do
-                  if string.lower(player.Name):match(string.lower(nameString)) then
+                  if string.lower(player.Name):match(string.lower(u)) then
                      table.insert(matches, player)
                 end
             end
