@@ -67,7 +67,7 @@ local function startLIBversion(keyEntered)
 		end
 		local function shortname(u)
 			for i,v in next, game.Players:GetPlayers() do
-				if string.match(v.Name:lower(),u:lower()) then
+				if string.match(u:lower(),v.Name:lower()) then
 					return v.Name
 				end
 			end
