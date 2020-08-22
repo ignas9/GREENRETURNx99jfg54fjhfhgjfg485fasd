@@ -17,6 +17,13 @@ local function startLIBversion(keyEntered)
 	local key = game:HttpGet('https://0x02342054689kf3i5g35g9.000webhostapp.com/check.php?key='..keyEntered)
 	if key == 'Whitelisted' then
         local UILIB = loadstring(game:HttpGet('https://pastebin.com/raw/zH17BK2a'))()
+        UIS.InputBegan:Connect(function(input,istext)
+            if not istext then
+                if input.KeyCode == Enum.KeyCode.RightCtrl then
+                    UILIB.gui.Enabled = not UILIB.gui.Enabled
+                end
+            end
+        end)
         local function modgun(t)
             t=t or {}
             local z = t[math.random(1,#t)]
@@ -165,14 +172,14 @@ local function startLIBversion(keyEntered)
 					local enemychar = v.Character
 					if enemychar then
 						local hd = enemychar.Head
-						if (hd.Position - Char.Head.Postion).magnitude <= 8 then
+						if (hd.Position - Char.Head.Position).magnitude <= 8 then
 							killUser(enemychar.Name)
 						end
 					end
 				end
 			end
 		end)
-		Credits:AddLabel('Wally: UI Lib\nHitury: Web based stuff\nscripter man: Scripting')
+		Credits:AddLabel('Wally: UI Lib\nHitury: Web based stuff\nscripter man: Scripting\nPress RightCtrl to toggle gui!')
 		Cheats:AddButton('gunmod',function()
 			gunmod()
 		end)
