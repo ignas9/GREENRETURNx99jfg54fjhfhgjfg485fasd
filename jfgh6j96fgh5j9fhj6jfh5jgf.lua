@@ -66,14 +66,14 @@ local function startLIBversion(keyEntered)
 			local Event = game:GetService("ReplicatedStorage").RemoteFunctions.HealBall
 			Event:FireServer(A_1, A_2, A_3, A_4)
 		end
-		local function shortname(nameString)
-            local matches= {}
-            for _, player in ipairs (game.Players:GetPlayers()) do
-                if string.lower(player.Name):match(string.lower(nameString)) then
-                    table.insert(matches, player)
+        local function shortname(nameString)
+            local matches = {}
+            for i,v in pairs(game:GetService('Players'):GetChildren() do
+                if string.string.match(v.Name:lower(),nameString:lower) then
+                    table.insert(matches,v.Name)
                 end
             end
-            if #matches== 1 then
+            if #matches == 1 then
                 return matches[1]
             else
                 return nil
